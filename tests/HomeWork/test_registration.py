@@ -15,6 +15,7 @@ def test_registration():
 
     assert response.status_code == HTTPStatus.OK
     assert response.json().get('token') is not None
+    print(response.status_code)
 
 
 def test_incorrect_registration():
@@ -30,4 +31,4 @@ def test_incorrect_registration():
 
     assert response.status_code == HTTPStatus.BAD_REQUEST
     assert response.json().get('error') == 'Missing password'
-
+    print(response.status_code) #просто для визуальной проверки
