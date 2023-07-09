@@ -35,7 +35,7 @@ class Api(Client):
 
     def create(self, name: str, job: str):
         """
-         :method:    post
+        :method:    post
         :rout:   /api/users
         :status:    201
         :body:    {
