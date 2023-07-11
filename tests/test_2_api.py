@@ -1,6 +1,7 @@
 from api.questions_api import api
 from http import HTTPStatus
 from utils.assertions import Assert
+import re
 
 def test_list_users():
     res = api.list_users()
@@ -8,6 +9,8 @@ def test_list_users():
 
     assert res.status_code == HTTPStatus.OK
     #Assert.validate_schema(res.json())
+
+
 
 
 
@@ -25,6 +28,10 @@ def test_single_user():
     # Assert.validate_schema(res.json())
 
     assert res_body['data']['first_name'] == "Janet"
+
+    assert re.fullmatch(r"[A-Z][a-z]+", res_body["data"]["last_name"])
+    # assert re.fullmatch(r"\w[a-z]+",res_body["data"]["last_name"])
+
     example = {
         "data": {
             "id": 2,
@@ -48,6 +55,8 @@ def test_creat():
     assert res.status_code == HTTPStatus.CREATED
     assert res.json()['name'] == name
     assert res.json()['job'] == job
+
+    assert re.fullmatch(r"\d{1,4}", res.json()['id'])
 
     assert api.delete_user(res.json()['id']).status_code == HTTPStatus.NO_CONTENT
 
